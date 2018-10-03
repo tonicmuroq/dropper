@@ -11,13 +11,12 @@ setup(
     include_package_data=True,
     entry_points={
         'console_scripts':[
-            'eru-cli=erucli.console.cmdline:main',
             'dropper=dropper.main:main',
         ],
     },
     install_requires=[
-        'click>=2.0',
-        'tabulate',
-        'boto3',
+        'click==7.0',
+        'tabulate==0.8.2',
+        'boto3==1.9.16',
     ],
 )
