@@ -1,0 +1,19 @@
+{% for private in privates %}
+acl p{{private.port}} myport {{private.port}}
+http_access allow p{{private.port}}
+tcp_outgoing_address {{private.ip}} p{{private.port}}
+
+{% endfor %}
+
+http_access deny all
+
+{% for private in privates %}
+http_port {{private.ip}}:{{private.port}} name=p{{private.port}}
+{% endfor %}
+
+coredump_dir /var/spool/squid
+
+refresh_pattern ^ftp:		1440	20%	10080
+refresh_pattern ^gopher:	1440	0%	1440
+refresh_pattern -i (/cgi-bin/|\?) 0	0%	0
+refresh_pattern .		0	20%	4320
